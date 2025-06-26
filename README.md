@@ -1,7 +1,7 @@
 ASCII Cylinder Animation
 =======================
 
-Made by: Ellis Simmons, May 2025  
+Made by: Ellis Simmons, June 2025  
 Language: JavaScript (HTML/CSS/JS)
 
 ---
