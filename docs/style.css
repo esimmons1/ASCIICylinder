@@ -108,7 +108,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: var(--spacing-sm);
+    gap: .25rem;
     padding: var(--spacing-sm);
     background: var(--surface-gray);
     border-radius: var(--border-radius-sm);
