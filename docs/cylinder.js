@@ -28,6 +28,8 @@ class CylinderAnimation {
         // Get screen dimensions
         this.screenWidth = 120;
         this.screenHeight = 60; // Sets height for animation dimensions
+        this.updateScreenSize();
+        window.addEventListener('resize', () => this.updateScreenSize()); // Now screen will be limited by the window
         
         // Character buffer and z-buffer for front and back surfaces
         this.z_front = new Array(this.screenWidth * this.screenHeight).fill(-Infinity);
