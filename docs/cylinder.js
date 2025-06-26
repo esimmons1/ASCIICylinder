@@ -16,32 +16,7 @@ const charList = '@#%MW&8$B0QOZmwqpdbkhao*+xjt/|()1{}[]?-_=~<>!Il;:^",.`';
 
 class CylinderAnimation {
     constructor() {
-        this.A = 0.0;  // Rotation around x-axis
-        this.B = 0.0;  // Rotation around z-axis
-        this.isRunning = true;
-        this.speedMultiplier = 1.0;
-        
-        // Projection constants
-        this.scaleX = 30.0;       // X-axis scaling factor
-        this.scaleY = 15.0;       // Y-axis scaling factor
-        
-        // Get screen dimensions
-        this.screenWidth = 120;
-        this.screenHeight = 60; // Sets height for animation dimensions
-        this.updateScreenSize();
-        window.addEventListener('resize', () => this.updateScreenSize()); // Now screen will be limited by the window
-        
-        // Character buffer and z-buffer for front and back surfaces
-        this.z_front = new Array(this.screenWidth * this.screenHeight).fill(-Infinity);
-        this.idx_front = new Array(this.screenWidth * this.screenHeight).fill(null);
-        this.z_back = new Array(this.screenWidth * this.screenHeight).fill(Infinity);
-        this.idx_back = new Array(this.screenWidth * this.screenHeight).fill(null);
-        
-        // Luminance characters - extended for smoother shading
-        this.luminanceChars = charList.split('').reverse();
-        this.charLen = this.luminanceChars.length;
-        
-        // DOM elements
+        // DOM elements (move these to the top!)
         this.asciiOutput = document.getElementById('asciiOutput');
         this.playPauseBtn = document.getElementById('playPauseBtn');
         this.resetBtn = document.getElementById('resetBtn');
@@ -55,7 +30,25 @@ class CylinderAnimation {
         this.heightValue = document.getElementById('heightValue');
         this.distanceSlider = document.getElementById('distanceSlider');
         this.distanceValue = document.getElementById('distanceValue');
-        
+
+        this.A = 0.0;  // Rotation around x-axis
+        this.B = 0.0;  // Rotation around z-axis
+        this.isRunning = true;
+        this.speedMultiplier = 1.0;
+        // Projection constants
+        this.scaleX = 30.0;       // X-axis scaling factor
+        this.scaleY = 15.0;       // Y-axis scaling factor
+        // Get screen dimensions
+        this.updateScreenSize();
+        window.addEventListener('resize', () => this.updateScreenSize());
+        // Character buffer and z-buffer for front and back surfaces
+        this.z_front = new Array(this.screenWidth * this.screenHeight).fill(-Infinity);
+        this.idx_front = new Array(this.screenWidth * this.screenHeight).fill(null);
+        this.z_back = new Array(this.screenWidth * this.screenHeight).fill(Infinity);
+        this.idx_back = new Array(this.screenWidth * this.screenHeight).fill(null);
+        // Luminance characters - extended for smoother shading
+        this.luminanceChars = charList.split('').reverse();
+        this.charLen = this.luminanceChars.length;
         this.setupEventListeners();
         this.animate();
     }
@@ -129,6 +122,11 @@ class CylinderAnimation {
     }
     
     renderFrame() {
+        this.updateScreenSize();
+        if (this.screenWidth < 5 || this.screenHeight < 5) {
+            this.asciiOutput.textContent = '';
+            return;
+        }
         this.resetBuffers();
         
         // Pre-calculate rotation matrices
@@ -237,6 +235,39 @@ class CylinderAnimation {
         }
         
         requestAnimationFrame(() => this.animate());
+    }
+
+    updateScreenSize() {
+        // Get the asciiOutput element's size in pixels
+        const pre = this.asciiOutput;
+        if (!pre) return;
+        // Get computed font size and line height
+        const style = window.getComputedStyle(pre);
+        const fontWidth = this.getFontWidth(pre, style);
+        const fontHeight = parseFloat(style.lineHeight) || parseFloat(style.fontSize);
+        // Get the pre's width and height in pixels
+        const rect = pre.getBoundingClientRect();
+        // Calculate how many characters fit
+        this.screenWidth = Math.max(10, Math.floor(rect.width / fontWidth));
+        this.screenHeight = Math.max(5, Math.floor(rect.height / fontHeight));
+        // Recreate buffers
+        this.z_front = new Array(this.screenWidth * this.screenHeight).fill(-Infinity);
+        this.idx_front = new Array(this.screenWidth * this.screenHeight).fill(null);
+        this.z_back = new Array(this.screenWidth * this.screenHeight).fill(Infinity);
+        this.idx_back = new Array(this.screenWidth * this.screenHeight).fill(null);
+    }
+
+    getFontWidth(pre, style) {
+        // Create a span to measure monospace character width
+        const span = document.createElement('span');
+        span.textContent = 'M';
+        span.style.fontFamily = style.fontFamily;
+        span.style.fontSize = style.fontSize;
+        span.style.visibility = 'hidden';
+        pre.appendChild(span);
+        const width = span.getBoundingClientRect().width;
+        pre.removeChild(span);
+        return width;
     }
 }
 
