@@ -102,7 +102,7 @@ Sources & Inspiration:
 - ASCII donut animation mainly
 - Donut.c and other 3D ASCII art projects
 - My own Python terminal animation (original version)
-- Math and graphics tutorials on 3D projection and lighting
+- Math and graphics tutorials on 3D projection and lighting:
   - [Donut-shaped C code that generates a 3D spinning donut](https://www.youtube.com/watch?v=DEqXNfs_HhY)
   - [3D ASCII Spinning Donut Tutorial](https://www.youtube.com/watch?v=LqQ-ezbyiW4)
   - [I made a 3D SPINNING ASCII DONUT in SVG](https://www.youtube.com/watch?app=desktop&v=_ILovr-qQmc)
