@@ -8,7 +8,7 @@ Language: JavaScript (HTML/CSS/JS)
 
 What this is?
 -----------------------------------
-Web-based ASCII art animation rendering a 3D cylinder in real time using only text characters. Inspired by classic terminal graphics, fully interactive in browser. Adjust cylinder properties and lighting with sliders, see results instantly—no downloads or dependencies.
+Web-based ASCII art animation rendering a 3D cylinder in real time using only text characters. Inspired by classic terminal graphics, fully interactive in browser. Adjust cylinder properties and lighting with sliders, see results instantly. No downloads or dependencies.
 
 ---
 
@@ -30,7 +30,7 @@ What it does:
 
 How to run it:
 -----------------------------------------------
-Open `index.html` in any modern web browser, or visit GitHub Pages link ([**Put link here**]). No installation or dependencies needed—everything runs in browser.
+Open `index.html` in any modern web browser, or visit GitHub Pages link (https://esimmons1.github.io/ASCIICylinder). No installation or dependencies needed—everything runs in browser.
 
 ---
 
