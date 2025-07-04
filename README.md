@@ -30,7 +30,8 @@ What it does:
 
 How to run it:
 -----------------------------------------------
-Open `index.html` in any modern web browser, or visit the website: https://esimmons1.github.io/ASCIICylinder. No installation or dependencies needed—everything runs in browser.
+Open `index.html` in any modern web browser, or visit the website: https://esimmons1.github.io/ASCIICylinder.     
+No installation or dependencies needed—everything runs in browser.
 
 ---
 
