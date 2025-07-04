@@ -30,11 +30,24 @@ class CylinderAnimation {
         this.heightValue = document.getElementById('heightValue');
         this.distanceSlider = document.getElementById('distanceSlider');
         this.distanceValue = document.getElementById('distanceValue');
+        this.chaosSlider = document.getElementById('chaosSlider');
+        this.chaosValue = document.getElementById('chaosValue');
+        this.turboModeBtn = document.getElementById('turboModeBtn');
+        this.turboValue = document.getElementById('turboValue');
 
         this.A = 0.0;  // Rotation around x-axis
         this.B = 0.0;  // Rotation around z-axis
         this.isRunning = true;
         this.speedMultiplier = 1.0;
+        this.turboMode = false;
+        this.turboAcceleration = 0.0;
+        this.chaosLevel = 0.3; // Default chaos level
+        
+        // Random rotation variables for chaotic movement
+        this.randomA = 0.0;
+        this.randomB = 0.0;
+        this.randomTimer = 0;
+        this.randomInterval = 30; // Change random direction every 30 frames
         // Projection constants
         this.scaleX = 30.0;       // X-axis scaling factor
         this.scaleY = 15.0;       // Y-axis scaling factor
@@ -50,6 +63,11 @@ class CylinderAnimation {
         this.luminanceChars = charList.split('').reverse();
         this.charLen = this.luminanceChars.length;
         this.setupEventListeners();
+        
+        // Ensure turbo mode starts unchecked
+        this.turboModeBtn.checked = false;
+        this.turboValue.textContent = 'OFF';
+        
         this.animate();
     }
     
@@ -84,6 +102,21 @@ class CylinderAnimation {
             this.distanceSlider.value = 7.0;
             viewerDistance = 7.0;
             this.distanceValue.textContent = '7.0';
+            
+            this.chaosSlider.value = 0.3;
+            this.chaosLevel = 0.3;
+            this.chaosValue.textContent = '0.3';
+            
+            // Reset turbo mode
+            this.turboMode = false;
+            this.turboAcceleration = 0.0;
+            this.turboModeBtn.checked = false;
+            this.turboValue.textContent = 'OFF';
+            
+            // Reset random rotation
+            this.randomA = 0.0;
+            this.randomB = 0.0;
+            this.randomTimer = 0;
         });
         
         this.speedSlider.addEventListener('input', (e) => {
@@ -109,6 +142,24 @@ class CylinderAnimation {
         this.distanceSlider.addEventListener('input', (e) => {
             viewerDistance = parseFloat(e.target.value);
             this.distanceValue.textContent = viewerDistance.toFixed(1);
+        });
+        
+        this.chaosSlider.addEventListener('input', (e) => {
+            this.chaosLevel = parseFloat(e.target.value);
+            this.chaosValue.textContent = this.chaosLevel.toFixed(1);
+        });
+        
+        this.turboModeBtn.addEventListener('change', (e) => {
+            this.turboMode = e.target.checked;
+            this.turboValue.textContent = this.turboMode ? 'ON' : 'OFF';
+            
+            if (!this.turboMode) {
+                // Reset acceleration when turbo is turned off
+                this.turboAcceleration = 0.0;
+                this.speedMultiplier = 1.0;
+                this.speedSlider.value = 1.0;
+                this.speedValue.textContent = '1.0x';
+            }
         });
     }
     
@@ -230,8 +281,33 @@ class CylinderAnimation {
     animate() {
         if (this.isRunning) {
             this.renderFrame();
-            this.A += 0.04 * this.speedMultiplier;
-            this.B += 0.02 * this.speedMultiplier;
+            
+            // Apply turbo acceleration if enabled
+            if (this.turboMode) {
+                this.turboAcceleration += 0.01; // Gradually increase acceleration
+                this.speedMultiplier = 1.0 + this.turboAcceleration;
+                
+                // Update the speed slider and display to show current speed
+                this.speedSlider.value = this.speedMultiplier;
+                this.speedValue.textContent = this.speedMultiplier.toFixed(1) + 'x';
+            }
+            
+            // Update random rotation directions periodically
+            this.randomTimer++;
+            if (this.randomTimer >= this.randomInterval) {
+                this.randomTimer = 0;
+                // Generate new random rotation speeds with chaos level variation
+                const chaosMultiplier = this.chaosLevel * 0.2; // Scale chaos effect
+                this.randomA = (Math.random() - 0.5) * chaosMultiplier;
+                this.randomB = (Math.random() - 0.5) * chaosMultiplier * 0.75;
+            }
+            
+            // Apply base rotation plus random variation
+            const baseSpeedA = 0.04 * this.speedMultiplier;
+            const baseSpeedB = 0.02 * this.speedMultiplier;
+            
+            this.A += baseSpeedA + this.randomA;
+            this.B += baseSpeedB + this.randomB;
         }
         
         requestAnimationFrame(() => this.animate());
