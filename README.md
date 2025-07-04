@@ -1,14 +1,14 @@
 ASCII Cylinder Animation
 =======================
 
-Made by: Ellis Simmons, June 2025  
+Made by: Ellis Simmons, May 2025  
 Language: JavaScript (HTML/CSS/JS)
 
 ---
 
 What this is?
 -----------------------------------
-Web-based ASCII art animation rendering a 3D cylinder in real time using only text characters. Inspired by classic terminal graphics, fully interactive in browser. Adjust cylinder properties and lighting with sliders, see results instantly, no downloads or dependencies.
+Web-based ASCII art animation rendering a 3D cylinder in real time using only text characters. Inspired by classic terminal graphics, fully interactive in browser. Adjust cylinder properties and lighting with sliders, see results instantly—no downloads or dependencies.
 
 ---
 
@@ -30,8 +30,7 @@ What it does:
 
 How to run it:
 -----------------------------------------------
-Open `index.html` in any modern web browser, or visit GitHub Pages link : *https://esimmons1.github.io/ASCIICylinder*.     
-No installation or dependencies needed. Everything runs in browser.
+Open `index.html` in any modern web browser, or visit GitHub Pages link ([**Put link here**]). No installation or dependencies needed—everything runs in browser.
 
 ---
 
@@ -82,7 +81,7 @@ Math variables and ranges:
 
 Why I made it:
 --------------------------------------
-Wanted to share ASCII cylinder with friends and people online without downloads or dependencies. Brought retro terminal style ASCII art to web with modern interactivity and smooth animation. Fun way to combine math, graphics, and UI design.
+Wanted to share ASCII cylinder with friends and people online without downloads or dependencies. Brought retro terminal-style ASCII art to web with modern interactivity and smooth animation. Fun way to combine math, graphics, and UI design.
 
 ---
 
@@ -103,7 +102,7 @@ Sources & Inspiration:
 - ASCII donut animation mainly
 - Donut.c and other 3D ASCII art projects
 - My own Python terminal animation (original version)
-- Math and graphics tutorials on 3D projection and lighting:
+- Math and graphics tutorials on 3D projection and lighting
   - [Donut-shaped C code that generates a 3D spinning donut](https://www.youtube.com/watch?v=DEqXNfs_HhY)
   - [3D ASCII Spinning Donut Tutorial](https://www.youtube.com/watch?v=LqQ-ezbyiW4)
   - [I made a 3D SPINNING ASCII DONUT in SVG](https://www.youtube.com/watch?app=desktop&v=_ILovr-qQmc)
